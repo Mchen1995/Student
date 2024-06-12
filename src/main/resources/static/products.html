@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Products</title>
+    <style>
+    .product {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+<h1>Products</h1>
+
+<div id="product-list"></div>
+
+<script>
+    // Fetch product data from the server
+    fetch('/products/all')
+      .then(response => response.json())
+      .then(data => {
+        // Get the product list container
+        const productList = document.getElementById('product-list');
+
+        // Iterate over the product data and create elements
+        data.forEach(product => {
+          const productElement = document.createElement('div');
+          productElement.classList.add('product');
+
+          // const productName = document.createElement('h3');
+          // productName.textContent = product.name;
+
+          const productPrice = document.createElement('p');
+          productPrice.textContent = `Price: $${product.price}`;
+
+          const productName = document.createElement('p');
+          productName.textContent = `Name: ${product.productName}`;
+
+          const productDescription = document.createElement('p');
+          productDescription.textContent = product.description;
+
+          //const addToCartButton = document.createElement('button');
+          //addToCartButton.textContent = 'Add to Cart';
+          //addToCartButton.addEventListener('click', () => {
+            // Add the product to the cart
+            //addToCart(product);
+          //});
+
+          productElement.appendChild(productName);
+          productElement.appendChild(productPrice);
+          productElement.appendChild(productDescription);
+          //productElement.appendChild(addToCartButton);
+
+          productList.appendChild(productElement);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching products:', error);
+      });
+
+    // Function to add a product to the cart
+    function addToCart(product) {
+      // Implement your cart logic here
+      console.log(`Added ${product.name} to the cart.`);
+    }
+  </script>
+</body>
+</html>

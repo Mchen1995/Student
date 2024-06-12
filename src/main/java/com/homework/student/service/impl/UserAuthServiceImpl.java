@@ -13,6 +13,9 @@ public class UserAuthServiceImpl implements UserAuthService {
      * 用户表，先保存在内存中，后续可优化为保存在数据库中
      */
     public static final Map<String, String> USER_MAP = new HashMap<>();
+    static {
+        USER_MAP.put("admin", "admin");
+    }
     @Override
     public boolean register(String name, String password) throws Exception {
         // 检查用户名是否存在，若存在，则报错，不存在则注册成功

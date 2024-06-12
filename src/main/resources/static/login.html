@@ -70,11 +70,11 @@
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            // Handle successful login response
-            console.log('Login successful!');
+            // 登录成功,跳转到商品管理页面
+            window.location.href = '/products.html';
         } else {
-            // Handle login error
-            console.error('Login failed.');
+            // 登录失败,显示弹窗提示
+            alert('Invalid username or password');
         }
     };
     xhr.send('name=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password));
