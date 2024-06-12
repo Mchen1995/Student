@@ -28,12 +28,12 @@ public class ProductManageServiceImpl implements ProductManageService {
             return PRODUCT_LIST;
         }
         return PRODUCT_LIST.stream()
-                .filter(product -> product.getProductName().equals(productName)).collect(Collectors.toList());
+                .filter(product -> product.getName().equals(productName)).collect(Collectors.toList());
     }
 
     @Override
     public boolean insertProduct(String productName, double price) throws Exception {
-        boolean anyMatch = PRODUCT_LIST.stream().anyMatch(product -> product.getProductName().equals(productName));
+        boolean anyMatch = PRODUCT_LIST.stream().anyMatch(product -> product.getName().equals(productName));
         if (anyMatch) {
             throw new Exception("商品"+productName+"已存在");
         } else {
@@ -49,6 +49,13 @@ public class ProductManageServiceImpl implements ProductManageService {
 
     @Override
     public boolean deleteProduct(String productName) {
-        return false;
+        int index = 0;
+        for (int i = 0; i<productName.length(); i++) {
+            if (PRODUCT_LIST.get(i).getName().equals(productName)) {
+                index = i;
+            }
+        }
+        PRODUCT_LIST.remove(index);
+        return true;
     }
 }

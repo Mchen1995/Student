@@ -7,19 +7,19 @@ public class Product {
     /**
      * 商品名称
      */
-    private String productName;
+    private String name;
 
     /**
      * 商品价格
      */
     private double price;
 
-    public String getProductName() {
-        return productName;
+    public String getName() {
+        return name;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public double getPrice() {
@@ -30,8 +30,8 @@ public class Product {
         this.price = price;
     }
 
-    public Product(String productName, double price) {
-        this.productName = productName;
+    public Product(String name, double price) {
+        this.name = name;
         this.price = price;
     }
 }

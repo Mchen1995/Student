@@ -26,4 +26,9 @@ public class ProductController {
     public void addProduct(@RequestParam String productName, @RequestParam double price) throws Exception {
         productManageService.insertProduct(productName, price);
     }
+
+    @DeleteMapping("/delete/{productName}")
+    public void deleteProduct(@PathVariable String productName) throws Exception {
+        productManageService.deleteProduct(productName);
+    }
 }
