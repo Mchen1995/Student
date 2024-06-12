@@ -18,7 +18,13 @@ public class ProductController {
 
     @GetMapping("/all")
     public ResponseEntity<List<Product>> listAllProducts() {
-        List<Product> products = productManageService.queryProduct("");
+        List<Product> products = productManageService.queryProduct("", "");
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
+    @PostMapping("/query")
+    public ResponseEntity<List<Product>> queryProduct(@RequestParam String productName, @RequestParam String price) {
+        List<Product> products = productManageService.queryProduct(productName, price);
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 

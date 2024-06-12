@@ -23,12 +23,22 @@ public class ProductManageServiceImpl implements ProductManageService {
     }
 
     @Override
-    public List<Product> queryProduct(String productName) {
-        if (StringUtil.isNullOrEmpty(productName)) {
+    public List<Product> queryProduct(String productName, String price) {
+        if (StringUtil.isNullOrEmpty(productName) && StringUtil.isNullOrEmpty(price)) {
             return PRODUCT_LIST;
         }
-        return PRODUCT_LIST.stream()
-                .filter(product -> product.getName().equals(productName)).collect(Collectors.toList());
+        if (StringUtil.isNullOrEmpty(price)) {
+            return PRODUCT_LIST.stream()
+                    .filter(product -> product.getName().equals(productName)).collect(Collectors.toList());
+        } else {
+            if (StringUtil.isNullOrEmpty(productName)) {
+                return PRODUCT_LIST.stream()
+                        .filter(product -> String.valueOf(product.getPrice()).equals(price)).collect(Collectors.toList());
+            } else {
+                return PRODUCT_LIST.stream()
+                        .filter(product -> String.valueOf(product.getPrice()).equals(price) && product.getName().equals(productName)).collect(Collectors.toList());
+            }
+        }
     }
 
     @Override

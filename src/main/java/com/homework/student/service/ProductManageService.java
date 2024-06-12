@@ -14,7 +14,7 @@ public interface ProductManageService {
      * @param productName 商品名称
      * @return
      */
-    List<Product> queryProduct(String productName);
+    List<Product> queryProduct(String productName, String price);
 
     /**
      * 新增商品
