@@ -8,6 +8,9 @@ import java.util.Map;
 
 @Service("registerService")
 public class UserAuthServiceImpl implements UserAuthService {
+    public static final String LOGIN_FLAG = "isLogin";
+
+    public static final Map<String, Boolean> LOGIN_MAP = new HashMap<>();
 
     /**
      * 用户表，先保存在内存中，后续可优化为保存在数据库中
@@ -32,6 +35,7 @@ public class UserAuthServiceImpl implements UserAuthService {
         if (!USER_MAP.containsKey(name) || !USER_MAP.get(name).equals(password)) {
             throw new Exception("用户名或密码错误");
         }
+        LOGIN_MAP.put(LOGIN_FLAG, true);
         return true;
     }
 }
