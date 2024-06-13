@@ -17,9 +17,9 @@ public class ProductManageServiceImpl implements ProductManageService {
      */
     public static final List<Product> PRODUCT_LIST = new ArrayList<>();
     static {
-        PRODUCT_LIST.add(new Product("苹果", 3.0));
-        PRODUCT_LIST.add(new Product("香蕉", 7.0));
-        PRODUCT_LIST.add(new Product("橘子", 15.0));
+        PRODUCT_LIST.add(new Product("苹果", "3.00"));
+        PRODUCT_LIST.add(new Product("香蕉", "7.00"));
+        PRODUCT_LIST.add(new Product("橘子", "15.00"));
     }
 
     @Override
@@ -42,7 +42,7 @@ public class ProductManageServiceImpl implements ProductManageService {
     }
 
     @Override
-    public boolean insertProduct(String productName, double price) throws Exception {
+    public boolean insertProduct(String productName, String price) throws Exception {
         boolean anyMatch = PRODUCT_LIST.stream().anyMatch(product -> product.getName().equals(productName));
         if (anyMatch) {
             throw new Exception("商品"+productName+"已存在");
@@ -53,14 +53,21 @@ public class ProductManageServiceImpl implements ProductManageService {
     }
 
     @Override
-    public boolean modifyProduct(String productName, double price) throws Exception {
-        return false;
+    public boolean modifyProduct(String productName, String price) throws Exception {
+        int index = 0;
+        for (int i = 0; i<PRODUCT_LIST.size(); i++) {
+            if (PRODUCT_LIST.get(i).getName().equals(productName)) {
+                index = i;
+            }
+        }
+        PRODUCT_LIST.get(index).setPrice(price);
+        return true;
     }
 
     @Override
     public boolean deleteProduct(String productName) {
         int index = 0;
-        for (int i = 0; i<productName.length(); i++) {
+        for (int i = 0; i<PRODUCT_LIST.size(); i++) {
             if (PRODUCT_LIST.get(i).getName().equals(productName)) {
                 index = i;
             }

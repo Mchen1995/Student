@@ -12,7 +12,7 @@ public class Product {
     /**
      * 商品价格
      */
-    private double price;
+    private String price;
 
     public String getName() {
         return name;
@@ -22,15 +22,15 @@ public class Product {
         this.name = name;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
-    public Product(String name, double price) {
+    public Product(String name, String price) {
         this.name = name;
         this.price = price;
     }

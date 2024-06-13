@@ -22,7 +22,7 @@ public interface ProductManageService {
      * @param price
      * @return
      */
-    boolean insertProduct(String productName, double price) throws Exception;
+    boolean insertProduct(String productName, String price) throws Exception;
 
     /**
      * 修改商品
@@ -30,7 +30,7 @@ public interface ProductManageService {
      * @param price
      * @return
      */
-    boolean modifyProduct(String productName, double price) throws Exception;
+    boolean modifyProduct(String productName, String price) throws Exception;
 
     /**
      * 删除商品

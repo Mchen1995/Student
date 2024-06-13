@@ -9,15 +9,29 @@
             background-color: #f2f2f2;
         }
 
-        .login-container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            margin: 0 auto;
-            margin-top: 100px;
+        .login-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
+
+        .login-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+        .login-box {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: white;
+      padding: 20px;
+      border-radius: 5px;
+      width: 300px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
         input[type=text], input[type=password] {
             width: 100%;
@@ -30,7 +44,7 @@
         }
 
         button {
-            background-color: #4CAF50;
+            background-color: blue;
             color: white;
             padding: 14px 20px;
             margin: 8px 0;
@@ -47,17 +61,20 @@
 </head>
 <body>
 <div class="login-container">
-    <h2>Login</h2>
+    <img src="college.jpeg" alt="College Background">
+    <!--<h2>Login</h2> -->
+    <div class="login-box">
     <form id="login-form">
-        <label for="username">Username:</label>
+        <label for="username">用户名:</label>
         <input type="text" id="username" name="username" placeholder="Enter your username" required>
 
-        <label for="password">Password:</label>
+        <label for="password">密码:</label>
         <input type="password" id="password" name="password" placeholder="Enter your password" required>
 
         <button type="submit">登录</button>
         <button type="submit">注册</button>
     </form>
+    </div>
 </div>
 
 <script>
@@ -73,7 +90,7 @@
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             // 登录成功,跳转到商品管理页面
-            window.location.href = '/products_new.html';
+            window.location.href = '/score_new.html';
         } else {
             // 登录失败,显示弹窗提示
             alert('Invalid username or password');
