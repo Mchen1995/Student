@@ -55,32 +55,76 @@
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" placeholder="Enter your password" required>
 
-        <button type="submit">登录</button>
-        <button type="submit">注册</button>
+        <button type="button" id="login-btn">登录</button>
+        <button type="button" id="register-btn">注册</button>
     </form>
 </div>
 
 <script>
-    document.getElementById('login-form').addEventListener('submit', function(event) {
-    event.preventDefault();
+    // 获取表单和按钮元素
+    const loginForm = document.getElementById('login-form');
+    const loginBtn = document.getElementById('login-btn');
+    const registerBtn = document.getElementById('register-btn');
 
-    var username = document.getElementById('username').value;
-    var password = document.getElementById('password').value;
+    // 添加登录按钮的点击事件监听器
+    loginBtn.addEventListener('click', () => {
+      // 获取用户名和密码的值
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/auth/login', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            // 登录成功,跳转到商品管理页面
-            window.location.href = '/products_new.html';
-        } else {
-            // 登录失败,显示弹窗提示
-            alert('Invalid username or password');
-        }
-    };
-    xhr.send('name=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password));
-});
-</script>
+      // 发送 AJAX 请求到 /auth/login 接口
+      fetchData('/auth/login', { name: username, password: password })
+        .then(data => {
+          if (data.success) {
+            // 登录成功,跳转
+            window.location.href = 'products_new.html';
+          } else {
+            // 登录失败,弹出提示框
+            alert('登录失败，请检查用户名和密码');
+          }
+        })
+        .catch(error => {
+          // 处理错误
+          console.error(error);
+        });
+    });
+
+    // 添加注册按钮的点击事件监听器
+    registerBtn.addEventListener('click', () => {
+      // 获取用户名和密码的值
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      // 发送 AJAX 请求到 /auth/register 接口
+      fetchData('/auth/register', { name: username, password: password })
+        .then(data => {
+          if (data.success) {
+            // 注册成功,弹窗提示
+            alert('注册成功，可以使用新的账号密码登录');
+          } else {
+            // 登录失败,弹出提示框
+            alert('注册失败，用户名已存在或账号密码格式不正确');
+          }
+        })
+        .catch(error => {
+          // 处理错误
+          console.error(error);
+        });
+    });
+
+    // 发送 AJAX 请求的函数
+    async function fetchData(url, data) {
+      // 使用 fetch API 发送 AJAX 请求
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams(data)
+      });
+
+      return await response.json();
+    }
+  </script>
 </body>
 </html>
