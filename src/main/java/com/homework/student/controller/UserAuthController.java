@@ -1,8 +1,12 @@
 package com.homework.student.controller;
 
 import ch.qos.logback.core.util.StringUtil;
+import com.homework.student.model.LoginResponse;
+import com.homework.student.model.RegisterResponse;
 import com.homework.student.service.UserAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,18 +22,28 @@ public class UserAuthController {
     private UserAuthService userAuthService;
 
     @PostMapping("/register")
-    public void register(@RequestParam String name, @RequestParam String password) throws Exception {
+    public ResponseEntity<RegisterResponse> register(@RequestParam String name, @RequestParam String password) throws Exception {
         if (StringUtil.isNullOrEmpty(name) || StringUtil.isNullOrEmpty(password)) {
-            throw new Exception("用户名或密码不能为空");
+            return ResponseEntity.status(HttpStatus.OK).body(new RegisterResponse(false));
         }
         boolean registerSuccess = userAuthService.register(name, password);
+        if (registerSuccess) {
+            return ResponseEntity.status(HttpStatus.OK).body(new RegisterResponse(true));
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(new RegisterResponse(false));
+        }
     }
 
     @PostMapping("/login")
-    public void login(@RequestParam String name, @RequestParam String password) throws Exception {
+    public ResponseEntity<LoginResponse> login(@RequestParam String name, @RequestParam String password) throws Exception {
         if (StringUtil.isNullOrEmpty(name) || StringUtil.isNullOrEmpty(password)) {
-            throw new Exception("用户名或密码不能为空");
+            return ResponseEntity.status(HttpStatus.OK).body(new LoginResponse(false));
         }
         boolean registerSuccess = userAuthService.login(name, password);
+        if (registerSuccess) {
+            return ResponseEntity.status(HttpStatus.OK).body(new LoginResponse(true));
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(new LoginResponse(false));
+        }
     }
 }
